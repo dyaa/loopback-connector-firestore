@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"repository": "dyaa/loopback-connector-firestore",
 	"dependencies": {
+		"debug": "^3.1.0",
 		"firebase-admin": "^5.4.1",
 		"loopback-connector": "4.3.0"
 	},
