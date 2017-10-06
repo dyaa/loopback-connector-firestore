@@ -19,10 +19,15 @@ Then the data source generator will prompt some questions like
  - Enter the connector's module name **loopback-connector-firestore**
  - Install loopback-connector-firestore (Y/n) **y**
 
-Then you should use a service account. Go to [Project Settings > Service Accounts][4] in the Cloud Platform Console. Generate a new private key and save the JSON file in the Loopback's `server` directory
+Then you should use a service account. Go to [Project Settings > Service Accounts][4] in the Cloud Platform Console. Generate a new private key and save the JSON file in the Loopback's `server` directory with file name `serviceAccountKey.json`
 
 #### Inspiration
 I've got inspired by the Official [MongoDB connector][3] by Loopback
+
+#### TODO
+
+ - Add test
+ - Make Service Account Key name and path an option
 
 #### License
 

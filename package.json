@@ -1,13 +1,21 @@
 {
-    "name": "loopback-connector-firestore",
-    "version": "0.1.1",
-    "description": "Firebase Firestore connector for the LoopBack framework.",
-    "main": "index.js",
-    "dependencies": {
-        "firebase-admin": "^5.4.1",
-        "loopback-connector": "4.3.0"
-    },
-    "devDependencies": {
-        "mocha": "~4.0.0"
-    }
+	"name": "loopback-connector-firestore",
+	"version": "0.1.2",
+	"description": "Firebase Firestore connector for the LoopBack framework.",
+	"main": "index.js",
+	"repository": "dyaa/loopback-connector-firestore",
+	"dependencies": {
+		"firebase-admin": "^5.4.1",
+		"loopback-connector": "4.3.0"
+	},
+	"devDependencies": {
+		"mocha": "~4.0.0"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"author": "Dyaa Eldin <mail@dyaa.me> (https://dyaa.me)",
+	"license": "MIT",
+	"bugs": "https://github.com/dyaa/loopback-connector-firestore/issues",
+	"homepage": "https://github.com/dyaa/loopback-connector-firestore"
 }
