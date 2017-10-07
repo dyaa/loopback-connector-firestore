@@ -1,6 +1,8 @@
 # loopback-connector-firestore
 Firebase Firestore connector for the LoopBack framework.
 
+[![wercker status](https://app.wercker.com/status/5e9652f63a609040f049a790e98c667a/s/master "wercker status")](https://app.wercker.com/project/byKey/5e9652f63a609040f049a790e98c667a)
+
 **This project still under development**
 
 I needed an easy way to connect a Loopback application to [Firebase][7]'s NoSQL database [Firestore][6] so that i decided to build this connector.
