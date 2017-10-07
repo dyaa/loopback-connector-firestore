@@ -1,0 +1,7 @@
+{
+	"extends": "loopback",
+	"rules": {
+		"indent": ["error", "tab"],
+		"max-len": ["error", 120]
+	}
+}
