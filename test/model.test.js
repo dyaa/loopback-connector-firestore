@@ -12,7 +12,7 @@ describe('Firestore collection', function() {
 
 	var customerObj;
 
-	it('should create a document', function(done) {
+	it('Should create a document', function(done) {
 		Customer.create({
 			name: 'Dyaa Eldin',
 			emails: [
@@ -27,20 +27,27 @@ describe('Firestore collection', function() {
 		});
 	});
 
-	it('should get all documents', function(done) {
+	it('Should get all documents', function(done) {
 		Customer.all(function(err, customer) {
 			customer.should.be.array; // eslint-disable-line no-unused-expressions
 			done(err, customer);
 		});
 	});
 
-	it('should find a document by findById', function(done) {
+	it('Should find a document by findById', function(done) {
 		Customer.findById(customerObj.id, function(err, customer) {
 			done(err, customer);
 		});
 	});
 
-	it('should delete a document', function(done) {
+	it('Should Replace attributes for a model instance', function(done) {
+		Customer.replaceById(customerObj.id, {emails: ['bar@example.com']}, {validate: true}, function(err, customer) {
+			customer.should.have.property('emails').with.lengthOf(1);
+			done(err, customer);
+		});
+	});
+
+	it('Should delete a document', function(done) {
 		Customer.destroyAll({id: customerObj.id}, function(err, customer) {
 			done(err, customer);
 		});
