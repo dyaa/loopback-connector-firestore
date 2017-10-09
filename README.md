@@ -45,7 +45,7 @@ You should fill the application's datasource file which is located in `/server/d
 | privateKey | String | private_key in the JSON file | --- |
 | databaseName | String | Firebase's project id | Optional, Default: projectId | --- |
 
-And you can actually store those private details as an Environment variables, Check [source-configuration][4]
+And you can actually store those private details as an Environment variables, Check [source-configuration][8]
 
 ### Inspiration
 I've got inspired by the Official [MongoDB connector][3] by Loopback
