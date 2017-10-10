@@ -39,9 +39,9 @@
     string-format-obj "^1.1.0"
     through2 "^2.0.3"
 
-"@google-cloud/firestore@~0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/firestore/-/firestore-0.8.1.tgz#f741986ec57e64c763090db6da9fea3acb9dfe0e"
+"@google-cloud/firestore@~0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@google-cloud/firestore/-/firestore-0.8.2.tgz#e93a7068b723f0773c1af62f3494c0633ba2d346"
   dependencies:
     "@google-cloud/common" "^0.13.5"
     "@google-cloud/common-grpc" "^0.4.0"
@@ -831,11 +831,11 @@ file-entry-cache@^2.0.0:
     flat-cache "^1.2.1"
     object-assign "^4.0.1"
 
-firebase-admin@^5.4.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-5.4.1.tgz#6a930c5ed3ffceb7772394a50ba60497ec5090f6"
+firebase-admin@^5.4.2:
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-5.4.2.tgz#002f58be2ad8901229e525ec55fa726d12f904eb"
   dependencies:
-    "@google-cloud/firestore" "~0.8.1"
+    "@google-cloud/firestore" "~0.8.2"
     "@google-cloud/storage" "^1.2.1"
     "@types/google-cloud__storage" "^1.1.1"
     "@types/jsonwebtoken" "^7.1.33"
