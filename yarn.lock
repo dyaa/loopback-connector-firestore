@@ -1993,9 +1993,9 @@ should-util@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/should-util/-/should-util-1.0.0.tgz#c98cda374aa6b190df8ba87c9889c2b4db620063"
 
-should@^13.1.1:
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/should/-/should-13.1.1.tgz#f0f8a8b7d355eb15dfe4315447e2f41adf2de4f1"
+should@^13.1.2:
+  version "13.1.2"
+  resolved "https://registry.yarnpkg.com/should/-/should-13.1.2.tgz#46e1335672d0bc5e16146b35947c995a3e5c7b15"
   dependencies:
     should-equal "^2.0.0"
     should-format "^3.0.3"
