@@ -1183,6 +1183,12 @@ ignore@^3.3.3:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.5.tgz#c4e715455f6073a8d7e5dae72d2fc9d71663dba6"
 
+import-export@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/import-export/-/import-export-1.0.1.tgz#2b705fc9d022a32cf86a43e41224b8e25ab6335e"
+  dependencies:
+    node-hook "^0.4.0"
+
 imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
@@ -1585,6 +1591,10 @@ natural-compare@^1.4.0:
 node-forge@0.7.1, node-forge@^0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.1.tgz#9da611ea08982f4b94206b3beb4cc9665f20c300"
+
+node-hook@^0.4.0:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/node-hook/-/node-hook-0.4.1.tgz#1016a106e93ebd959fd337cbe35fa6397fa9d61c"
 
 node-pre-gyp@^0.6.36:
   version "0.6.38"

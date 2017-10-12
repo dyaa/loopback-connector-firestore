@@ -1,4 +1,3 @@
-'use strict';
 
 require('./init.js');
 var ds = getDataSource(); // eslint-disable-line no-undef

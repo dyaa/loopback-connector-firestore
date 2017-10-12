@@ -3,5 +3,8 @@
 	"rules": {
 		"indent": ["error", "tab"],
 		"max-len": ["error", 120]
-	}
+	},
+	"parserOptions": {
+        "sourceType": "module"
+    }
 }
