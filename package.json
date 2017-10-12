@@ -1,6 +1,6 @@
 {
 	"name": "loopback-connector-firestore",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Firebase Firestore connector for the LoopBack framework.",
 	"main": "index.js",
 	"scripts": {
@@ -13,8 +13,8 @@
 		"url": "git://github.com/dyaa/loopback-connector-firestore.git"
 	},
 	"dependencies": {
-		"debug": "^3.1.0",
 		"firebase-admin": "^5.4.2",
+		"import-export": "^1.0.1",
 		"loopback-connector": "4.3.0"
 	},
 	"devDependencies": {
