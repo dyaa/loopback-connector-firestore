@@ -50,11 +50,6 @@ And you can actually store those private details as an Environment variables, Ch
 ### Inspiration
 I've got inspired by the Official [MongoDB connector][3] by Loopback
 
-### TODO
-
- - Add test
- - Make Service Account Key name and path an option
-
 ### License
 
 Copylefted (c) 2017 [Dyaa Eldin Moustafa][1] Licensed under the [MIT license][2].
