@@ -26,13 +26,13 @@ Then you should use a service account. Go to [Project Settings > Service Account
 
 You should fill the application's datasource file which is located in `/server/datasources.json`  with those details, You can find them in the downloaded JSON file from the Google Cloud Platform.
 
-```javascrpt
+```json
 "firestore": {
   "name": "firestore",
   "projectId": "",
   "clientEmail":  "",
   "privateKey": "",
-  "databaseName": "" // Optional, Default: projectId
+  "databaseName": "Optional, Default: projectId"
 }
 ```
 
