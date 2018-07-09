@@ -187,6 +187,13 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
+accept-language@^3.0.18:
+  version "3.0.18"
+  resolved "https://registry.yarnpkg.com/accept-language/-/accept-language-3.0.18.tgz#f5025f17bf65a466a845838ccf98cdb877d83384"
+  dependencies:
+    bcp47 "^1.1.2"
+    stable "^0.1.6"
+
 acorn-jsx@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-4.1.1.tgz#e8e41e48ea2fe0c896740610ab6a4ffd8add225e"
@@ -359,17 +366,22 @@ base64url@2.0.0, base64url@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/base64url/-/base64url-2.0.0.tgz#eac16e03ea1438eff9423d69baa36262ed1f70bb"
 
+bcp47@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/bcp47/-/bcp47-1.1.2.tgz#354be3307ffd08433a78f5e1e2095845f89fc7fe"
+
 bcrypt-pbkdf@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
   dependencies:
     tweetnacl "^0.14.3"
 
-bl@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/bl/-/bl-1.2.1.tgz#cac328f7bee45730d404b692203fcb590e172d5e"
+bl@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bl/-/bl-2.0.1.tgz#1de8346d50c3078d088d6a60c2bbc8c516248bc5"
   dependencies:
-    readable-stream "^2.0.5"
+    readable-stream "^2.3.5"
+    safe-buffer "^5.1.1"
 
 block-stream@*:
   version "0.0.9"
@@ -497,6 +509,10 @@ charenc@~0.0.1:
 circular-json@^0.3.1:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.3.tgz#815c99ea84f6809529d2f45791bdf82711352d66"
+
+cldrjs@^0.4.6:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/cldrjs/-/cldrjs-0.4.8.tgz#3b994c464d2a32b5aca7c5de17a60a87e45dc4f9"
 
 cli-cursor@^2.1.0:
   version "2.1.0"
@@ -1166,6 +1182,12 @@ glob@7.1.2, glob@^7.0.3, glob@^7.0.5, glob@^7.1.2:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
+globalize@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/globalize/-/globalize-1.3.0.tgz#c56524b8acfd2ce38d0c97ddfdceb38f644b3392"
+  dependencies:
+    cldrjs "^0.4.6"
+
 globals@^11.7.0:
   version "11.7.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.7.0.tgz#a583faa43055b1aca771914bf68258e2fc125673"
@@ -1748,15 +1770,15 @@ long@^3.2.0, long@~3:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/long/-/long-3.2.0.tgz#d821b7138ca1cb581c172990ef14db200b5c474b"
 
-loopback-connector@4.4.0, loopback-connector@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/loopback-connector/-/loopback-connector-4.4.0.tgz#15136532896b79d8dc280be27d657fad000c1209"
+loopback-connector@4.5.0, loopback-connector@^4.4.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/loopback-connector/-/loopback-connector-4.5.0.tgz#5a25ad214a6f9d9e95ccba5f6f185bf3e24d6783"
   dependencies:
     async "^2.1.5"
     bluebird "^3.4.6"
     debug "^3.1.0"
-    msgpack5 "^3.4.1"
-    strong-globalize "^3.1.0"
+    msgpack5 "^4.2.0"
+    strong-globalize "^4.1.1"
     uuid "^3.0.1"
 
 loopback-datasource-juggler@^3.13.0:
@@ -1879,14 +1901,14 @@ ms@2.0.0, ms@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-msgpack5@^3.4.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/msgpack5/-/msgpack5-3.5.1.tgz#9d97d00893a1d4a1b045be026a3ff7c9e50f301a"
+msgpack5@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/msgpack5/-/msgpack5-4.2.0.tgz#e005ec893b71e1140bb177f2d1f4b7f290169611"
   dependencies:
-    bl "^1.2.1"
+    bl "^2.0.0"
     inherits "^2.0.3"
-    readable-stream "^2.3.3"
-    safe-buffer "^5.1.1"
+    readable-stream "^2.3.6"
+    safe-buffer "^5.1.2"
 
 mute-stream@0.0.7:
   version "0.0.7"
@@ -2139,6 +2161,10 @@ process-nextick-args@^1.0.7, process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
 
+process-nextick-args@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.0.tgz#a37d732f4271b4ab1ad070d35508e8290788ffaa"
+
 progress@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
@@ -2237,7 +2263,7 @@ read-pkg@^2.0.0:
     normalize-package-data "^2.3.2"
     path-type "^2.0.0"
 
-readable-stream@^2.0.0, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.4, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.3.3:
+readable-stream@^2.0.0, readable-stream@^2.0.2, readable-stream@^2.0.6, readable-stream@^2.1.4, readable-stream@^2.1.5, readable-stream@^2.2.2:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.3.tgz#368f2512d79f9d46fdfc71349ae7878bbc1eb95c"
   dependencies:
@@ -2247,6 +2273,18 @@ readable-stream@^2.0.0, readable-stream@^2.0.2, readable-stream@^2.0.5, readable
     process-nextick-args "~1.0.6"
     safe-buffer "~5.1.1"
     string_decoder "~1.0.3"
+    util-deprecate "~1.0.1"
+
+readable-stream@^2.3.5, readable-stream@^2.3.6:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
+  dependencies:
+    core-util-is "~1.0.0"
+    inherits "~2.0.3"
+    isarray "~1.0.0"
+    process-nextick-args "~2.0.0"
+    safe-buffer "~5.1.1"
+    string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
 readable-stream@~1.0.32:
@@ -2402,6 +2440,10 @@ safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
+safe-buffer@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
+
 "semver@2 || 3 || 4 || 5", semver@^5.3.0, semver@^5.4.1:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
@@ -2527,6 +2569,10 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
 
+stable@^0.1.6:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/stable/-/stable-0.1.8.tgz#836eb3c8382fe2936feaf544631017ce7d47a3cf"
+
 stream-events@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/stream-events/-/stream-events-1.0.2.tgz#abf39f66c0890a4eb795bc8d5e859b2615b590b2"
@@ -2573,6 +2619,12 @@ string_decoder@~0.10.x:
 string_decoder@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.3.tgz#0fc67d7c141825de94282dd536bec6b9bce860ab"
+  dependencies:
+    safe-buffer "~5.1.0"
+
+string_decoder@~1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.1.1.tgz#9cf1611ba62685d7030ae9e4ba34149c3af03fc8"
   dependencies:
     safe-buffer "~5.1.0"
 
@@ -2623,6 +2675,19 @@ strong-globalize@^3.1.0:
     posix-getopt "^1.2.0"
     word-count "^0.2.2"
     xtend "^4.0.1"
+    yamljs "^0.3.0"
+
+strong-globalize@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/strong-globalize/-/strong-globalize-4.1.1.tgz#0c800919d141cfd5cce4cbbdf13629a2fc3b70e9"
+  dependencies:
+    accept-language "^3.0.18"
+    debug "^3.1.0"
+    globalize "^1.3.0"
+    lodash "^4.17.4"
+    md5 "^2.2.1"
+    mkdirp "^0.5.1"
+    os-locale "^2.0.0"
     yamljs "^0.3.0"
 
 stubs@^3.0.0:
