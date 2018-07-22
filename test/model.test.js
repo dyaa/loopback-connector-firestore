@@ -1,6 +1,13 @@
 
 require('./init.js');
-var ds = getDataSource(); // eslint-disable-line no-undef
+var customConfig = null;
+try {
+	customConfig = require('./config.json');
+} catch (error) {
+	console.log('Using env config');
+}
+
+var ds = getDataSource(customConfig); // eslint-disable-line no-undef
 
 describe('Firestore collection', function() {
 	var Customer = ds.createModel('customer', {
@@ -26,15 +33,44 @@ describe('Firestore collection', function() {
 		});
 	});
 
+	it('Should create another document', function(done) {
+		Customer.create({
+			name: 'Cristian Bullokles',
+			emails: [
+				'cris@bar.com',
+			],
+			age: 27,
+		}, function(err, customer) {
+			customer.should.have.property('name', 'Cristian Bullokles');
+			customer.should.have.property('emails').with.lengthOf(1);
+			done(err, customer);
+		});
+	});
+
 	it('Should get all documents', function(done) {
 		Customer.all(function(err, customer) {
+			customer.should.have.length(2);
+			done(err, customer);
+		});
+	});
+
+	it('Should find a documents by age less than 28', function(done) {
+		Customer.find({where: {age: {'lt': 28}}}, function(err, customer) {
 			customer.should.be.array; // eslint-disable-line no-unused-expressions
 			done(err, customer);
 		});
 	});
 
-	it('Should find a document by findById', function(done) {
-		Customer.findById(customerObj.id, function(err, customer) {
+	it('Should find a document by id', function(done) {
+		Customer.find({where: {id: customerObj.id}}, function(err, customer) {
+			customer.should.be.array; // eslint-disable-line no-unused-expressions
+			done(err, customer);
+		});
+	});
+
+	it('Should find a document by age equals to 26', function(done) {
+		Customer.find({where: {age: 26}}, function(err, customer) {
+			customer.should.be.array; // eslint-disable-line no-unused-expressions
 			done(err, customer);
 		});
 	});
@@ -46,8 +82,14 @@ describe('Firestore collection', function() {
 		});
 	});
 
-	it('Should delete a document', function(done) {
+	 it('Should delete a document', function(done) {
 		Customer.destroyAll({id: customerObj.id}, function(err, customer) {
+			done(err, customer);
+		});
+	});
+
+	it('Should delete all document', function(done) {
+		Customer.destroyAll(null, function(err, customer) {
 			done(err, customer);
 		});
 	});
