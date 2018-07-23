@@ -835,9 +835,17 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-eslint-config-loopback@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-loopback/-/eslint-config-loopback-8.0.0.tgz#f142bca47122994a1a85f19cc2163511616b4152"
+eslint-config-loopback@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-loopback/-/eslint-config-loopback-11.0.0.tgz#293a0b3558ca42ac2af770d2607e2486812a2852"
+  dependencies:
+    eslint-plugin-mocha "^4.11.0"
+
+eslint-plugin-mocha@^4.11.0:
+  version "4.12.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mocha/-/eslint-plugin-mocha-4.12.1.tgz#dbacc543b178b4536ec5b19d7f8e8864d85404bf"
+  dependencies:
+    ramda "^0.25.0"
 
 eslint-scope@^4.0.0:
   version "4.0.0"
@@ -2212,6 +2220,10 @@ qs@~6.4.0:
 querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
+
+ramda@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
 
 rc@^1.1.7:
   version "1.2.1"
