@@ -3,11 +3,14 @@ module.exports = require('should');
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
 
-var config = {
-	projectId: process.env.firestore_projectId,
-	clientEmail: process.env.firestore_clientEmail,
-	privateKey: process.env.firestore_privateKey.replace(/\\n/g, '\n'), // eslint-disable-line max-len
-};
+var config;
+if (process.env.firestore_projectId != null) {
+	config = {
+		projectId: process.env.firestore_projectId,
+		clientEmail: process.env.firestore_clientEmail,
+		privateKey: process.env.firestore_privateKey.replace(/\\n/g, '\n'), // eslint-disable-line max-len
+	};
+}
 
 global.config = config;
 
