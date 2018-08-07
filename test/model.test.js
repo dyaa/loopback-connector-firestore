@@ -47,20 +47,6 @@ describe('Firestore collection', function() {
 		});
 	});
 
-	it('Should get all documents', function(done) {
-		Customer.all(function(err, customer) {
-			customer.should.have.length(2);
-			done(err, customer);
-		});
-	});
-
-	it('Should find a documents by age less than 28', function(done) {
-		Customer.find({where: {age: {'lt': 28}}}, function(err, customer) {
-			customer.should.be.array; // eslint-disable-line no-unused-expressions
-			done(err, customer);
-		});
-	});
-
 	it('Should find a document by id', function(done) {
 		Customer.find({where: {id: customerObj.id}}, function(err, customer) {
 			customer.should.be.array; // eslint-disable-line no-unused-expressions
@@ -68,9 +54,34 @@ describe('Firestore collection', function() {
 		});
 	});
 
+	it('Should get object properties', function(done) {
+		Customer.find({where: {id: customerObj.id}}, function(err, customer) {
+			customer.should.have.length(1);
+			customer.should.containDeep([{name: 'Dyaa Eldin'}]);
+			done(err, customer);
+		});
+	});
+
+	it('Should get all documents', function(done) {
+		Customer.all(function(err, customer) {
+			customer.should.have.length(2);
+			customer.should.containDeep([{name: 'Cristian Bullokles'}]);
+			done(err, customer);
+		});
+	});
+
+	it('Should find a documents by age less than 28', function(done) {
+		Customer.find({where: {age: {'lt': 28}}}, function(err, customer) {
+			customer.should.have.length(2);
+			customer.should.containDeep([{age: 26}]);
+			done(err, customer);
+		});
+	});
+
 	it('Should find a document by age equals to 26', function(done) {
-		Customer.find({where: {age: 26}}, function(err, customer) {
-			customer.should.be.array; // eslint-disable-line no-unused-expressions
+		Customer.find({where: {age: 27}}, function(err, customer) {
+			customer.should.have.length(1);
+			customer.should.containDeep([{age: 27}]);
 			done(err, customer);
 		});
 	});
