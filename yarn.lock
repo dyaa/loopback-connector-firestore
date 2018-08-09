@@ -1759,9 +1759,9 @@ loopback-connector@4.4.0, loopback-connector@^4.4.0:
     strong-globalize "^3.1.0"
     uuid "^3.0.1"
 
-loopback-datasource-juggler@^3.13.0:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/loopback-datasource-juggler/-/loopback-datasource-juggler-3.13.0.tgz#74932caee571337abe8f3d6df974d417b31a02a7"
+loopback-datasource-juggler@^3.14.0:
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/loopback-datasource-juggler/-/loopback-datasource-juggler-3.14.0.tgz#96b731650c1e8e8c4e712934077ae27879d16448"
   dependencies:
     async "~2.1.4"
     bluebird "^3.1.1"
