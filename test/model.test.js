@@ -16,7 +16,7 @@ describe('Firestore collection', function() {
 		age: Number,
 	});
 
-	var customerObj;
+	var customer1, customer2;
 
 	it('Should create a document', function(done) {
 		Customer.create({
@@ -26,7 +26,7 @@ describe('Firestore collection', function() {
 			],
 			age: 26,
 		}, function(err, customer) {
-			customerObj = customer;
+			customer1 = customer;
 			customer.should.have.property('name', 'Dyaa Eldin');
 			customer.should.have.property('emails').with.lengthOf(2);
 			done(err, customer);
@@ -41,6 +41,7 @@ describe('Firestore collection', function() {
 			],
 			age: 27,
 		}, function(err, customer) {
+			customer2 = customer;
 			customer.should.have.property('name', 'Cristian Bullokles');
 			customer.should.have.property('emails').with.lengthOf(1);
 			done(err, customer);
@@ -48,16 +49,19 @@ describe('Firestore collection', function() {
 	});
 
 	it('Should find a document by id', function(done) {
-		Customer.find({where: {id: customerObj.id}}, function(err, customer) {
+		Customer.find({where: {id: customer1.id}}, function(err, customer) {
 			customer.should.be.array; // eslint-disable-line no-unused-expressions
+			customer.should.containDeep([{id: customer1.id}]);
 			done(err, customer);
 		});
 	});
 
 	it('Should get object properties', function(done) {
-		Customer.find({where: {id: customerObj.id}}, function(err, customer) {
+		Customer.find({where: {id: customer1.id}}, function(err, customer) {
 			customer.should.have.length(1);
-			customer.should.containDeep([{name: 'Dyaa Eldin'}]);
+			customer.should.containDeep([{name: customer1.name}]);
+			customer.should.containDeep([{id: customer1.id}]);
+
 			done(err, customer);
 		});
 	});
@@ -65,7 +69,8 @@ describe('Firestore collection', function() {
 	it('Should get all documents', function(done) {
 		Customer.all(function(err, customer) {
 			customer.should.have.length(2);
-			customer.should.containDeep([{name: 'Cristian Bullokles'}]);
+			customer.should.containDeep([{id: customer1.id}]);
+			customer.should.containDeep([{id: customer2.id}]);
 			done(err, customer);
 		});
 	});
@@ -74,27 +79,29 @@ describe('Firestore collection', function() {
 		Customer.find({where: {age: {'lt': 28}}}, function(err, customer) {
 			customer.should.have.length(2);
 			customer.should.containDeep([{age: 26}]);
+			customer.should.containDeep([{id: customer1.id}]);
 			done(err, customer);
 		});
 	});
 
 	it('Should find a document by age equals to 26', function(done) {
-		Customer.find({where: {age: 27}}, function(err, customer) {
+		Customer.find({where: {age: customer1.age}}, function(err, customer) {
 			customer.should.have.length(1);
-			customer.should.containDeep([{age: 27}]);
+			customer.should.containDeep([{age: customer1.age}]);
+			customer.should.containDeep([{id: customer1.id}]);
 			done(err, customer);
 		});
 	});
 
 	it('Should Replace attributes for a model instance', function(done) {
-		Customer.replaceById(customerObj.id, {emails: ['bar@example.com']}, {validate: true}, function(err, customer) {
+		Customer.replaceById(customer1.id, {emails: ['bar@example.com']}, {validate: true}, function(err, customer) {
 			customer.should.have.property('emails').with.lengthOf(1);
 			done(err, customer);
 		});
 	});
 
 	 it('Should delete a document', function(done) {
-		Customer.destroyAll({id: customerObj.id}, function(err, customer) {
+		Customer.destroyAll({id: customer1.id}, function(err, customer) {
 			done(err, customer);
 		});
 	});
