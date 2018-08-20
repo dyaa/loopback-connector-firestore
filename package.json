@@ -33,7 +33,8 @@
 		"dyaa",
 		"loopback",
 		"strongloop",
-		"firestore"
+		"firestore",
+		"firebase"
 	],
 	"author": "Dyaa Eldin <mail@dyaa.me> (https://dyaa.me)",
 	"license": "MIT",
