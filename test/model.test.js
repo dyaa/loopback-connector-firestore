@@ -18,6 +18,13 @@ describe('Firestore collection', function() {
 
 	var customer1, customer2;
 
+	it('Should get all documents in empty collection', function(done) {
+		Customer.all(function(err, customer) {
+			customer.should.have.length(0);
+			done(err, customer);
+		});
+	});
+
 	it('Should create a document', function(done) {
 		Customer.create({
 			name: 'Dyaa Eldin',
