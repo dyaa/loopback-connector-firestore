@@ -32,7 +32,7 @@ describe('Firestore collection', function() {
 		});
 	});
 
-	it('Should create a document', function(done) {
+  it('Should create a document', function(done) {
 		Customer.create({
 			name: 'Dyaa Eldin',
 			emails: [
