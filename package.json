@@ -1,6 +1,6 @@
 {
 	"name": "loopback-connector-firestore",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "Firebase Firestore connector for the LoopBack framework.",
 	"main": "index.js",
 	"scripts": {
