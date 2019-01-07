@@ -25,7 +25,14 @@ describe('Firestore collection', function() {
 		});
 	});
 
-	it('Should create a document', function(done) {
+	it('Should get document in empty collection', function(done) {
+		Customer.find({where: {id: 1}}, function(err, customer) {
+			customer.should.have.length(0);
+			done(err, customer);
+		});
+	});
+
+  it('Should create a document', function(done) {
 		Customer.create({
 			name: 'Dyaa Eldin',
 			emails: [
