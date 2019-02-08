@@ -1,12 +1,12 @@
 {
 	"name": "loopback-connector-firestore",
-	"version": "1.0.6",
+	"version": "1.0.8",
 	"description": "Firebase Firestore connector for the LoopBack framework.",
 	"main": "index.js",
 	"scripts": {
 		"test": "mocha -G --timeout 10000 --require test/init.js test/*.test.js",
 		"lint": "eslint --fix .",
-		"posttest": "npm run lint && nsp check"
+		"posttest": "npm run lint"
 	},
 	"repository": {
 		"type": "git",
