@@ -4,8 +4,8 @@
 	"description": "Firebase Firestore connector for the LoopBack framework.",
 	"main": "index.js",
 	"scripts": {
-		"test": "mocha -G --timeout 10000 --require test/init.js test/*.test.js",
-		"lint": "eslint --fix .",
+		"test": "mocha --exit",
+		"lint": "eslint . --fix",
 		"posttest": "npm run lint"
 	},
 	"repository": {
@@ -13,19 +13,22 @@
 		"url": "git://github.com/dyaa/loopback-connector-firestore.git"
 	},
 	"dependencies": {
-		"firebase-admin": "^5.5.1",
-		"loopback-connector": "4.4.0"
+		"firebase-admin": "^8.7.0",
+		"loopback-connector": "4.9.0"
 	},
 	"devDependencies": {
-		"eslint": "^6.0.1",
-		"eslint-config-loopback": "^8.0.0",
-		"loopback-datasource-juggler": "^4.1.1",
-		"mocha": "~6.1.4",
-		"nsp": "^3.1.0",
-		"should": "^13.1.3"
+		"eslint": "^6.6.0",
+		"eslint-config-loopback": "^13.1.0",
+		"eslint-config-prettier": "^6.5.0",
+		"eslint-plugin-prettier": "^3.1.1",
+		"loopback-datasource-juggler": "^4.14.0",
+		"mocha": "~6.2.2",
+		"nsp": "^3.2.1",
+		"prettier": "^1.19.1",
+		"should": "^13.2.3"
 	},
 	"engines": {
-		"node": ">=6"
+		"node": ">=10"
 	},
 	"keywords": [
 		"connector",
