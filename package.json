@@ -3,9 +3,9 @@
 	"version": "1.0.8",
 	"description": "Firebase Firestore connector for the LoopBack framework.",
 	"scripts": {
-		"test": "mocha --exit",
 		"lint": "eslint . --fix --ext .ts",
 		"typecheck": "tsc --project tsconfig.json",
+		"test": "mocha --require ts-node/register test/**/*.test.ts",
 		"posttest": "npm run lint"
 	},
 	"repository": {
@@ -30,7 +30,7 @@
 		"nsp": "^3.2.1",
 		"prettier": "^1.19.1",
 		"should": "^13.2.3",
-		"ts-mocha": "^6.0.0",
+		"ts-node": "^8.4.1",
 		"typescript": "^3.7.2"
 	},
 	"engines": {
