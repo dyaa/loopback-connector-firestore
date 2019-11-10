@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es2018",
+		"lib": ["es2018", "dom"],
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"declaration": true,
+		"types": ["node"]
+	},
+	"include": ["lib/**/*"]
+}
