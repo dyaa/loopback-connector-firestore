@@ -1,6 +1,6 @@
 {
 	"extends": ["loopback", "prettier"],
-	"plugins": ["prettier"],
+	"plugins": ["@typescript-eslint", "prettier"],
 	"rules": {
 		"prettier/prettier": ["error", { "singleQuote": true }],
 		"indent": ["error", "tab"],
@@ -9,5 +9,6 @@
 	"parserOptions": {
 		"ecmaVersion": 2018,
 		"sourceType": "module"
-	}
+	},
+	"parser": "@typescript-eslint/parser"
 }

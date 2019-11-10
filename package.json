@@ -2,10 +2,10 @@
 	"name": "loopback-connector-firestore",
 	"version": "1.0.8",
 	"description": "Firebase Firestore connector for the LoopBack framework.",
-	"main": "index.js",
 	"scripts": {
 		"test": "mocha --exit",
-		"lint": "eslint . --fix",
+		"lint": "eslint . --fix --ext .ts",
+		"typecheck": "tsc --project tsconfig.json",
 		"posttest": "npm run lint"
 	},
 	"repository": {
@@ -17,6 +17,10 @@
 		"loopback-connector": "4.9.0"
 	},
 	"devDependencies": {
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.12.7",
+		"@typescript-eslint/eslint-plugin": "^2.6.1",
+		"@typescript-eslint/parser": "^2.6.1",
 		"eslint": "^6.6.0",
 		"eslint-config-loopback": "^13.1.0",
 		"eslint-config-prettier": "^6.5.0",
@@ -25,7 +29,9 @@
 		"mocha": "~6.2.2",
 		"nsp": "^3.2.1",
 		"prettier": "^1.19.1",
-		"should": "^13.2.3"
+		"should": "^13.2.3",
+		"ts-mocha": "^6.0.0",
+		"typescript": "^3.7.2"
 	},
 	"engines": {
 		"node": ">=10"
