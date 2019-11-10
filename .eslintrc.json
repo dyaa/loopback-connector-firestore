@@ -6,6 +6,9 @@
 		"indent": ["error", "tab"],
 		"max-len": ["error", 120]
 	},
+	"globals": {
+		"globalThis": true
+	},
 	"parserOptions": {
 		"ecmaVersion": 2018,
 		"sourceType": "module"

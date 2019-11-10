@@ -1,6 +1,6 @@
 {
 	"timeout": 10000,
-	"require": ["test/init.js", "test/*.test.js"],
+	"require": ["test/init.ts", "test/*.test.ts"],
 	"growl": true,
 	"retries": 3
 }
