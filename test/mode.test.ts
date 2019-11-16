@@ -27,17 +27,20 @@ describe('Firestore collection', () => {
 	let customer1: ICustomer, customer2: ICustomer;
 
 	it('Should get all documents in empty collection', done => {
-		Customer.all((err, customer: ICustomer) => {
-			customer.should.have.length(0);
+		Customer.all((err: Error, customers: ICustomer[]) => {
+			customers.should.have.length(0);
 			done(err);
 		});
 	});
 
 	it('Should get document in empty collection', done => {
-		Customer.find({ where: { id: 1 } }, (err, customer: ICustomer) => {
-			customer.should.have.length(0);
-			done(err);
-		});
+		Customer.find(
+			{ where: { id: 1 } },
+			(err: Error, customers: ICustomer[]) => {
+				customers.should.have.length(0);
+				done(err);
+			}
+		);
 	});
 
 	it('Should create a document', done => {
@@ -47,7 +50,7 @@ describe('Firestore collection', () => {
 				emails: ['noreply@dyaa.me', 'foo@bar.com'],
 				age: 26
 			},
-			(err, customer: ICustomer) => {
+			(err: Error, customer: ICustomer) => {
 				customer1 = customer;
 				customer.should.have.property('name', 'Dyaa Eldin');
 				customer.should.have.property('emails').with.lengthOf(2);
@@ -63,7 +66,7 @@ describe('Firestore collection', () => {
 				emails: ['cris@bar.com'],
 				age: 27
 			},
-			(err, customer: ICustomer) => {
+			(err: Error, customer: ICustomer) => {
 				customer2 = customer;
 				customer.should.have.property('name', 'Cristian Bullokles');
 				customer.should.have.property('emails').with.lengthOf(1);
@@ -75,7 +78,7 @@ describe('Firestore collection', () => {
 	it('Should find a document by id', done => {
 		Customer.find(
 			{ where: { id: customer1.id } },
-			(err, customers: ICustomer[]) => {
+			(err: Error, customers: ICustomer[]) => {
 				customers.should.be.instanceOf(Array);
 				customers.should.containDeep([{ id: customer1.id }]);
 				done(err);
@@ -86,7 +89,7 @@ describe('Firestore collection', () => {
 	it('Should get object properties', done => {
 		Customer.find(
 			{ where: { id: customer1.id } },
-			(err, customers: ICustomer[]) => {
+			(err: Error, customers: ICustomer[]) => {
 				customers.should.have.length(1);
 				customers.should.containDeep([{ name: customer1.name }]);
 				customers.should.containDeep([{ id: customer1.id }]);
@@ -97,7 +100,7 @@ describe('Firestore collection', () => {
 	});
 
 	it('Should get all documents', done => {
-		Customer.all((err, customers: ICustomer[]) => {
+		Customer.all((err: Error, customers: ICustomer[]) => {
 			customers.should.have.length(2);
 			customers.should.containDeep([{ id: customer1.id }]);
 			customers.should.containDeep([{ id: customer2.id }]);
@@ -108,7 +111,7 @@ describe('Firestore collection', () => {
 	// it('Should find a documents by age less than 28', done => {
 	// 	Customer.find(
 	// 		{ where: { age: { lt: 28 } } },
-	// 		(err, customers: ICustomer[]) => {
+	// 		(err: Error, customers: ICustomer[]) => {
 	// 			customers.should.have.length(2);
 	// 			customers.should.containDeep([{ age: 26 }]);
 	// 			customers.should.containDeep([{ id: customer1.id }]);
@@ -120,7 +123,7 @@ describe('Firestore collection', () => {
 	// it('Should find a document by age equals to 26', done => {
 	// 	Customer.find(
 	// 		{ where: { age: customer1.age } },
-	// 		(err, customers: ICustomer[]) => {
+	// 		(err: Error, customers: ICustomer[]) => {
 	// 			customers.should.have.length(1);
 	// 			customers.should.containDeep([{ age: customer1.age }]);
 	// 			customers.should.containDeep([{ id: customer1.id }]);
@@ -134,7 +137,7 @@ describe('Firestore collection', () => {
 			customer1.id,
 			{ emails: ['bar@example.com'] },
 			{ validate: true },
-			(err, customer: ICustomer) => {
+			(err: Error, customer: ICustomer) => {
 				customer.should.have.property('emails').with.lengthOf(1);
 				done(err);
 			}
@@ -142,13 +145,13 @@ describe('Firestore collection', () => {
 	});
 
 	it('Should delete a document', done => {
-		Customer.destroyAll({ id: customer1.id }, (err, _) => {
+		Customer.destroyAll({ id: customer1.id }, (err: Error, _) => {
 			done(err);
 		});
 	});
 
 	it('Should delete all document', done => {
-		Customer.destroyAll(null, (err, customer: ICustomer) => {
+		Customer.destroyAll(null, (err: Error, customer: ICustomer) => {
 			done(err);
 		});
 	});

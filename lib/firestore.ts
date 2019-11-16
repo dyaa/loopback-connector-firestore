@@ -1,6 +1,13 @@
-import admin, { FirebaseError } from 'firebase-admin';
 import { Connector } from 'loopback-connector';
-import { QuerySnapshot } from '@google-cloud/firestore';
+import {
+	QuerySnapshot,
+	Firestore as Admin,
+	Query,
+	DocumentSnapshot,
+	QueryDocumentSnapshot
+} from '@google-cloud/firestore';
+import { IFilter } from './interfaces';
+import { operators } from './config';
 
 const initialize = function initializeDataSource(dataSource, callback) {
 	dataSource.connector = new Firestore(dataSource.settings);
@@ -17,25 +24,17 @@ class Firestore extends Connector {
 		super();
 		this._models = {};
 
-		const {
-			projectId,
-			clientEmail,
-			privateKey,
-			databaseName
-		} = dataSourceProps;
-		const databaseURL =
-			`https://${databaseName}` || `${projectId}.firebaseio.com`;
+		const { projectId, clientEmail, privateKey } = dataSourceProps;
 
-		admin.initializeApp({
-			credential: admin.credential.cert({
-				projectId,
-				clientEmail,
-				privateKey: privateKey.replace(/\\n/g, '\n')
-			}),
-			databaseURL
+		const firestore = new Admin({
+			credentials: {
+				private_key: privateKey.replace(/\\n/g, '\n'), // eslint-disable-line camelcase
+				client_email: clientEmail // eslint-disable-line camelcase
+			},
+			projectId
 		});
 
-		this.db = admin.firestore();
+		this.db = firestore;
 	}
 
 	/**
@@ -45,35 +44,35 @@ class Firestore extends Connector {
 	 * @param {Object} filter The filter
 	 * @param {Function} [callback] The callback function
 	 */
-	public all = (model: string, filter: any, callback: any) => {
-		const response = [];
-		const query1 = this.db.collection(model);
+	public all = async (
+		model: string,
+		filter: IFilter,
+		_options: any,
+		callback: any
+	) => {
+		const { where } = filter;
 
-		this.buildQuery(filter, query1, query => {
-			query
-				.get()
-				.then(snapshot => {
-					if (snapshot.exists) {
-						const completeItem = snapshot.data();
-						completeItem.id = snapshot.id;
-						response.push(completeItem);
-					} else if (!snapshot.isEmpty) {
-						snapshot.forEach(item => {
-							const completeItem = item.data();
-							completeItem.id = item.id;
-							response.push(completeItem);
-						});
-					}
-				})
-				.then(() => callback(null, response))
-				.catch(err => callback(err));
-		});
+		try {
+			let result: any[];
+			if (where && where.id) {
+				const { id } = where;
+				result = await this.findById(model, id);
+			} else if (this.hasFilter(filter)) {
+				result = await this.findFilteredDocuments(model, filter);
+			} else {
+				result = await this.findAllOfModel(model);
+			}
+
+			callback(null, result);
+		} catch (error) {
+			callback(error);
+		}
 	};
 
 	/**
 	 * Check if a model instance exists by id
 	 * @param {String} model The model name
-	 * @param {*} id The id value
+	 * @param {Number | String} id The id value
 	 * @param {Function} [callback] The callback function
 	 *
 	 */
@@ -110,7 +109,7 @@ class Firestore extends Connector {
 				.then((doc: QuerySnapshot) => {
 					callback(null, doc.docs.length);
 				})
-				.catch((err: FirebaseError) => callback(err));
+				.catch(err => callback(err));
 		} else {
 			this.db
 				.collection(model)
@@ -137,7 +136,7 @@ class Firestore extends Connector {
 	 * @param {Object} data The property/value pairs to be updated
 	 * @callback {Function} callback Callback function
 	 */
-	public update = (model, where, data, _options, callback) => {
+	public update = (model, where: any, data, _options, callback) => {
 		const self = this;
 		this.exists(model, where.id, null, (err, res) => {
 			if (err) callback(err);
@@ -329,6 +328,187 @@ class Firestore extends Connector {
 		});
 	};
 
+	// /**
+	//  * Complete the Document objects with their ids
+	//  * @param {DocumentSnapshot[]} snapshots The array of snapshots
+	//  */
+	// private completeCollectionResults = (snapshots: DocumentSnapshot[]) => {
+	// 	return snapshots.forEach(snapshot => ({
+	// 		id: snapshot.id,
+	// 		...snapshot.data()
+	// 	}));
+	// };
+
+	/**
+	 * Complete the Document objects with their ids
+	 * @param {DocumentSnapshot[] | QueryDocumentSnapshot[]} snapshots The array of snapshots
+	 */
+	private completeDocumentResults = (
+		snapshots: DocumentSnapshot[] | QueryDocumentSnapshot[]
+	) => {
+		const results = [];
+
+		snapshots.forEach(item =>
+			results.push({
+				id: item.id,
+				...item.data()
+			})
+		);
+
+		return results;
+	};
+
+	/**
+	 * Internal method - Check if filter object has at least one valid property
+	 * @param {IFilter} filter The filter
+	 */
+	private hasFilter = ({ where, order, limit, fields, skip }: IFilter) => {
+		if (where || limit || fields || order || skip) return true;
+		return false;
+	};
+
+	/**
+	 * Find matching Collection Document by the id
+	 * @param {String} model The model name
+	 * @param {String} id The Entity id
+	 */
+	private findById = async (model: string, id: string) => {
+		try {
+			const documentSnapshot = await this.db
+				.collection(model)
+				.doc(id)
+				.get();
+			if (!documentSnapshot.exists) return Promise.resolve([]);
+
+			const result = { id: documentSnapshot.id, ...documentSnapshot.data() };
+
+			return Promise.resolve([result]);
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	/**
+	 * Find all Documents of a Collection
+	 * @param {String} model The model name
+	 */
+	private findAllOfModel = async (model: string) => {
+		try {
+			const collectionRef = this.db.collection(model);
+			const snapshots = await collectionRef.get();
+
+			if (snapshots.empty || snapshots.size === 0) return Promise.resolve([]);
+
+			const result = this.completeDocumentResults(snapshots.docs);
+
+			return Promise.resolve(result);
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	/**
+	 * Internal method - Get Documents with query execution
+	 * @param {String} model The model name
+	 * @param {IFilter} filter The filter
+	 */
+	private findFilteredDocuments = async (model: string, filter: IFilter) => {
+		const query = this.buildNewQuery(model, filter);
+		const snapshots = await query.get();
+
+		return this.completeDocumentResults(snapshots);
+	};
+
+	/**
+	 * Internal method for building query
+	 * @param {String} model The model name
+	 * @param {IFilter} filter The filter
+	 */
+	private buildNewQuery = (model: string, filter: IFilter) => {
+		const { where, limit, fields, skip } = filter;
+
+		let query = this.db.collection(model);
+
+		if (where) {
+			for (const key in where) {
+				if (where.hasOwnProperty(key)) {
+					const value = { [key]: where[key] };
+					query = this.addFiltersToQuery(query, value);
+				}
+			}
+		}
+
+		let { order } = filter;
+		if (order) {
+			if (!Array.isArray(order)) {
+				order = [order];
+			}
+
+			for (const option of order) {
+				const [property, orderOption] = option.split(' ');
+				query = query.orderBy(property, orderOption);
+			}
+		}
+
+		if (limit) {
+			query = query.limit(limit);
+		}
+
+		if (skip) {
+			query = query.offset(skip);
+		}
+
+		if (fields) {
+			for (const key in fields) {
+				if (fields.hasOwnProperty(key)) {
+					const field = fields[key];
+					if (field) query = query.select(key);
+				}
+			}
+		}
+
+		return query;
+	};
+
+	/**
+	 * Add new filter to a Query
+	 * @param {Query} query Firestore Query
+	 * @param {Object} filter The filter object
+	 */
+	private addFiltersToQuery = (query: Query, filter: IFilter) => {
+		const key = Object.keys(filter)[0];
+		const value = Object.values(filter)[0];
+
+		const isObject = value === 'object';
+
+		if (isObject) {
+			return this.addInnerFiltersToQuery(query, key, value);
+		}
+
+		return query.where(key, '==', value);
+	};
+
+	/**
+	 * Add inner filters to a Query
+	 * @param {Query} query Firestore Query
+	 * @param {String} key Property name being filtered
+	 * @param {Object} value Object with operator and comparison value
+	 */
+	private addInnerFiltersToQuery = (query: Query, key: string, value: any) => {
+		let resultQuery = query;
+
+		for (const operation in value) {
+			if (!value.hasOwnProperty(operation)) {
+				continue;
+			}
+			const comparison = value[operation];
+			const operator = operators[operation];
+			resultQuery = resultQuery.where(key, operator, comparison);
+		}
+
+		return resultQuery;
+	};
+
 	private deleteCollection = (db, collectionPath, batchSize) => {
 		const collectionRef = db.collection(collectionPath);
 		const query = collectionRef.orderBy('__name__').limit(batchSize);
@@ -336,40 +516,6 @@ class Firestore extends Connector {
 		return new Promise((resolve, reject) => {
 			this.deleteQueryBatch(db, query, batchSize, resolve, reject);
 		});
-	};
-
-	private buildQuery = (filter: any, query: any, callback: any) => {
-		const response = query;
-		if (filter.where && filter.where.id) {
-			callback(query.doc(filter.where.id));
-		} else if (filter.where) {
-			this.buildWhereQuery(filter.where, query, newQuery => {
-				callback(newQuery);
-			});
-		} else {
-			callback(response);
-		}
-	};
-
-	private buildWhereQuery = (
-		filter: { [x: string]: any },
-		query: any,
-		callback: (arg0: any) => void
-	) => {
-		const properties = Object.keys(filter).toString();
-		let operator = '==';
-		let operand;
-
-		if (typeof filter[properties] === 'object') {
-			const restOperator = Object.keys(filter[properties]).toString();
-			operator = this.decodeOperator(restOperator);
-			operand = filter[properties][restOperator];
-		} else if (typeof filter[properties[0]].inq === 'object') {
-			operand = filter[properties[0]].inq[0];
-		} else {
-			operand = filter[properties[0]];
-		}
-		callback(query.where(properties[0], operator, operand));
 	};
 
 	private decodeOperator = (restOperator: string) => {
