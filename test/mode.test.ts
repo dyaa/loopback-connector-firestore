@@ -108,29 +108,50 @@ describe('Firestore collection', () => {
 		});
 	});
 
-	// it('Should find a documents by age less than 28', done => {
-	// 	Customer.find(
-	// 		{ where: { age: { lt: 28 } } },
-	// 		(err: Error, customers: ICustomer[]) => {
-	// 			customers.should.have.length(2);
-	// 			customers.should.containDeep([{ age: 26 }]);
-	// 			customers.should.containDeep([{ id: customer1.id }]);
-	// 			done(err);
-	// 		}
-	// 	);
-	// });
+	it('Should get Cristian as first Document in the array', done => {
+		Customer.all(
+			{ order: 'age desc' },
+			(err: Error, customers: ICustomer[]) => {
+				customers.should.have.length(2);
+				customers[0].should.containDeep({ id: customer2.id });
 
-	// it('Should find a document by age equals to 26', done => {
-	// 	Customer.find(
-	// 		{ where: { age: customer1.age } },
-	// 		(err: Error, customers: ICustomer[]) => {
-	// 			customers.should.have.length(1);
-	// 			customers.should.containDeep([{ age: customer1.age }]);
-	// 			customers.should.containDeep([{ id: customer1.id }]);
-	// 			done(err);
-	// 		}
-	// 	);
-	// });
+				done(err);
+			}
+		);
+	});
+
+	it('Should find a documents by age less than 28', done => {
+		Customer.find(
+			{ where: { age: { lt: 28 } } },
+			(err: Error, customers: ICustomer[]) => {
+				customers.should.have.length(2);
+				customers.should.containDeep([{ age: 26 }]);
+				customers.should.containDeep([{ id: customer1.id }]);
+				done(err);
+			}
+		);
+	});
+
+	it('Should find a document by age equals to 26', done => {
+		Customer.find(
+			{ where: { age: customer1.age } },
+			(err: Error, customers: ICustomer[]) => {
+				customers.should.have.length(1);
+				customers.should.containDeep([{ age: customer1.age }]);
+				customers.should.containDeep([{ id: customer1.id }]);
+				done(err);
+			}
+		);
+	});
+
+	it('Should get one document from all using limit filter', done => {
+		Customer.all({ limit: 1 }, (err: Error, customers: ICustomer[]) => {
+			customers.should.have.length(1);
+			customers.should.containDeep([{ id: customer1.id }]);
+
+			done(err);
+		});
+	});
 
 	it('Should Replace attributes for a model instance', done => {
 		Customer.replaceById(

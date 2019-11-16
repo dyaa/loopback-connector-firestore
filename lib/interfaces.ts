@@ -9,3 +9,11 @@ export interface IFilter {
 export interface IField {
 	[key: string]: boolean;
 }
+
+export interface IDataSource {
+	settings?: { [key: string]: any };
+	connector?: any;
+	projectId?: string;
+	clientEmail?: string;
+	privateKey?: string;
+}
