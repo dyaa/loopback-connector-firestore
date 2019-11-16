@@ -153,7 +153,7 @@ class Firestore extends Connector {
 		callback: ICallback
 	) => {
 		const self = this;
-		this.exists(model, where.id, null, (err: Error, res: boolean) => {
+		this.exists(model, where.id, null, (err, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -186,7 +186,7 @@ class Firestore extends Connector {
 		callback: ICallback
 	) => {
 		const self = this;
-		this.exists(model, id, null, (err: Error, res: boolean) => {
+		this.exists(model, id, null, (err, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -218,7 +218,7 @@ class Firestore extends Connector {
 		callback: ICallback
 	) => {
 		const self = this;
-		this.exists(model, id, null, (err: Error, res: boolean) => {
+		this.exists(model, id, null, (err, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -247,7 +247,7 @@ class Firestore extends Connector {
 		callback: ICallback
 	) => {
 		const self = this;
-		this.exists(model, id, null, (err: Error, res: boolean) => {
+		this.exists(model, id, null, (err, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -274,7 +274,7 @@ class Firestore extends Connector {
 		const self = this;
 
 		if (where.id) {
-			this.exists(model, where.id, null, (err: Error, res: boolean) => {
+			this.exists(model, where.id, null, (err, res: boolean) => {
 				if (err) callback(err);
 				if (res) {
 					self.db
@@ -354,7 +354,7 @@ class Firestore extends Connector {
 		callback: ICallback
 	) => {
 		const self = this;
-		this.exists(model, where.id, null, (err: Error, res: boolean) => {
+		this.exists(model, where.id, null, (err, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
