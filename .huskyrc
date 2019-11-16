@@ -1,0 +1,5 @@
+{
+	"hooks": {
+		"pre-commit": "run-s test lint typecheck"
+	}
+}
