@@ -1,5 +1,5 @@
 {
 	"hooks": {
-		"pre-commit": "run-s test lint typecheck"
+		"pre-commit": "run-s lint typecheck stage-files"
 	}
 }

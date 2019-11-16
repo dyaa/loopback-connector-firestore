@@ -6,10 +6,13 @@ import {
 	DocumentSnapshot,
 	QueryDocumentSnapshot
 } from '@google-cloud/firestore';
-import { IFilter } from './interfaces';
+import { IFilter, IDataSource } from './interfaces';
 import { operators } from './config';
 
-const initialize = function initializeDataSource(dataSource, callback) {
+const initialize = function initializeDataSource(
+	dataSource: IDataSource,
+	callback: any
+) {
 	dataSource.connector = new Firestore(dataSource.settings);
 	process.nextTick(() => {
 		callback();
@@ -20,7 +23,7 @@ class Firestore extends Connector {
 	public _models: any;
 	public db: any;
 
-	constructor(dataSourceProps) {
+	constructor(dataSourceProps: IDataSource) {
 		super();
 		this._models = {};
 
@@ -79,7 +82,7 @@ class Firestore extends Connector {
 	public exists = (
 		model: string,
 		id: number | string,
-		_options,
+		_options: any,
 		callback: any
 	) => {
 		this.db
@@ -328,17 +331,6 @@ class Firestore extends Connector {
 		});
 	};
 
-	// /**
-	//  * Complete the Document objects with their ids
-	//  * @param {DocumentSnapshot[]} snapshots The array of snapshots
-	//  */
-	// private completeCollectionResults = (snapshots: DocumentSnapshot[]) => {
-	// 	return snapshots.forEach(snapshot => ({
-	// 		id: snapshot.id,
-	// 		...snapshot.data()
-	// 	}));
-	// };
-
 	/**
 	 * Complete the Document objects with their ids
 	 * @param {DocumentSnapshot[] | QueryDocumentSnapshot[]} snapshots The array of snapshots
@@ -479,7 +471,7 @@ class Firestore extends Connector {
 		const key = Object.keys(filter)[0];
 		const value = Object.values(filter)[0];
 
-		const isObject = value === 'object';
+		const isObject = typeof value === 'object';
 
 		if (isObject) {
 			return this.addInnerFiltersToQuery(query, key, value);
