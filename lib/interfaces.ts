@@ -17,3 +17,5 @@ export interface IDataSource {
 	clientEmail?: string;
 	privateKey?: string;
 }
+
+export type ICallback = (error: Error, result?: any) => void;
