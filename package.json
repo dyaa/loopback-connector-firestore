@@ -9,7 +9,8 @@
 		"typecheck": "tsc --project tsconfig.json",
 		"test": "mocha --require ts-node/register test/**/*.test.ts",
 		"stage-files": "git add .",
-		"build": "tsc"
+		"build": "tsc",
+		"prepublishOnly": "npm run build"
 	},
 	"repository": {
 		"type": "git",

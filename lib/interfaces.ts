@@ -18,4 +18,4 @@ export interface IDataSource {
 	privateKey?: string;
 }
 
-export type ICallback = (error: Error, result?: any) => void;
+export type ICallback = (error: Error | null, result?: any) => void;
