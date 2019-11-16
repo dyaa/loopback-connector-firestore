@@ -13,7 +13,7 @@
 		"url": "git://github.com/dyaa/loopback-connector-firestore.git"
 	},
 	"dependencies": {
-		"firebase-admin": "^8.7.0",
+		"@google-cloud/firestore": "^2.6.0",
 		"loopback-connector": "4.9.0"
 	},
 	"devDependencies": {
