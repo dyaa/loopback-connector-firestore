@@ -7,7 +7,7 @@ import {
 	QueryDocumentSnapshot,
 	DocumentReference
 } from '@google-cloud/firestore';
-import { IFilter, IDataSource } from './interfaces';
+import { IFilter, IDataSource, ICallback } from './interfaces';
 import { operators } from './config';
 
 const initialize = function initializeDataSource(
@@ -52,7 +52,7 @@ class Firestore extends Connector {
 		model: string,
 		filter: IFilter,
 		_options: any,
-		callback: any
+		callback: ICallback
 	) => {
 		const { where } = filter;
 
@@ -84,7 +84,7 @@ class Firestore extends Connector {
 		model: string,
 		id: number | string,
 		_options: any,
-		callback: any
+		callback: ICallback
 	) => {
 		this.db
 			.collection(model)
@@ -104,7 +104,12 @@ class Firestore extends Connector {
 	 * @param {Function} [callback] The callback function
 	 *
 	 */
-	public count = (model: string, where: any, _options: any, callback: any) => {
+	public count = (
+		model: string,
+		where: any,
+		_options: any,
+		callback: ICallback
+	) => {
 		if (Object.keys(where).length > 0) {
 			this.db
 				.collection(model)
@@ -125,11 +130,11 @@ class Firestore extends Connector {
 		}
 	};
 
-	public ping = (callback: any) => {
+	public ping = (callback: ICallback) => {
 		if (this.db.projectId) {
 			callback(null);
 		} else {
-			callback('Ping Error');
+			callback(new Error('Ping Error'));
 		}
 	};
 
@@ -145,7 +150,7 @@ class Firestore extends Connector {
 		where: any,
 		data: any,
 		_options: any,
-		callback: any
+		callback: ICallback
 	) => {
 		const self = this;
 		this.exists(model, where.id, null, (err: Error, res: boolean) => {
@@ -160,7 +165,7 @@ class Firestore extends Connector {
 						callback(null, []);
 					});
 			} else {
-				callback('Document not found');
+				callback(new Error('Document not found'));
 			}
 		});
 	};
@@ -178,7 +183,7 @@ class Firestore extends Connector {
 		id: string | number,
 		data: any,
 		_options: any,
-		callback: any
+		callback: ICallback
 	) => {
 		const self = this;
 		this.exists(model, id, null, (err: Error, res: boolean) => {
@@ -193,7 +198,7 @@ class Firestore extends Connector {
 						callback(null, []);
 					});
 			} else {
-				callback('Document not found');
+				callback(new Error('Document not found'));
 			}
 		});
 	};
@@ -210,7 +215,7 @@ class Firestore extends Connector {
 		id: string | number,
 		data: any,
 		_options: any,
-		callback: any
+		callback: ICallback
 	) => {
 		const self = this;
 		this.exists(model, id, null, (err: Error, res: boolean) => {
@@ -225,7 +230,7 @@ class Firestore extends Connector {
 						callback(null, []);
 					});
 			} else {
-				callback('Document not found');
+				callback(new Error('Document not found'));
 			}
 		});
 	};
@@ -236,7 +241,11 @@ class Firestore extends Connector {
 	 * @param {String | Number} id The instance id
 	 * @param [callback] The callback function
 	 */
-	public destroyById = (model: string, id: string | number, callback: any) => {
+	public destroyById = (
+		model: string,
+		id: string | number,
+		callback: ICallback
+	) => {
 		const self = this;
 		this.exists(model, id, null, (err: Error, res: boolean) => {
 			if (err) callback(err);
@@ -250,7 +259,7 @@ class Firestore extends Connector {
 						callback(null, []);
 					});
 			} else {
-				callback('Document not found');
+				callback(new Error('Document not found'));
 			}
 		});
 	};
@@ -261,7 +270,7 @@ class Firestore extends Connector {
 	 * @param {Object} where The id Object
 	 * @param [callback] The callback function
 	 */
-	public destroyAll = (model: string, where: any, callback: any) => {
+	public destroyAll = (model: string, where: any, callback: ICallback) => {
 		const self = this;
 
 		if (where.id) {
@@ -277,7 +286,7 @@ class Firestore extends Connector {
 							callback(null, []);
 						});
 				} else {
-					callback('Document not found');
+					callback(new Error('Document not found'));
 				}
 			});
 		} else {
@@ -325,7 +334,7 @@ class Firestore extends Connector {
 			.catch(reject);
 	};
 
-	public create = (model: string, data: any, callback: any) => {
+	public create = (model: string, data: any, callback: ICallback) => {
 		this.db
 			.collection(model)
 			.add(data)
@@ -342,7 +351,7 @@ class Firestore extends Connector {
 		where: any,
 		data: any,
 		_options: any,
-		callback: any
+		callback: ICallback
 	) => {
 		const self = this;
 		this.exists(model, where.id, null, (err: Error, res: boolean) => {
@@ -357,7 +366,7 @@ class Firestore extends Connector {
 						callback(null, []);
 					});
 			} else {
-				callback('Document not found');
+				callback(new Error('Document not found'));
 			}
 		});
 	};
