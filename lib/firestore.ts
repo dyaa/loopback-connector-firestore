@@ -4,7 +4,8 @@ import {
 	Firestore as Admin,
 	Query,
 	DocumentSnapshot,
-	QueryDocumentSnapshot
+	QueryDocumentSnapshot,
+	DocumentReference
 } from '@google-cloud/firestore';
 import { IFilter, IDataSource } from './interfaces';
 import { operators } from './config';
@@ -13,7 +14,7 @@ const initialize = function initializeDataSource(
 	dataSource: IDataSource,
 	callback: any
 ) {
-	dataSource.connector = new Firestore(dataSource.settings);
+	dataSource.connector = new Firestore(dataSource.settings!);
 	process.nextTick(() => {
 		callback();
 	});
@@ -31,7 +32,7 @@ class Firestore extends Connector {
 
 		const firestore = new Admin({
 			credentials: {
-				private_key: privateKey.replace(/\\n/g, '\n'), // eslint-disable-line camelcase
+				private_key: privateKey!.replace(/\\n/g, '\n'), // eslint-disable-line camelcase
 				client_email: clientEmail // eslint-disable-line camelcase
 			},
 			projectId
@@ -89,10 +90,10 @@ class Firestore extends Connector {
 			.collection(model)
 			.doc(id)
 			.get()
-			.then(doc => {
+			.then((doc: DocumentSnapshot) => {
 				callback(null, doc.exists);
 			})
-			.catch(err => callback(err));
+			.catch((err: Error) => callback(err));
 	};
 
 	/**
@@ -112,15 +113,15 @@ class Firestore extends Connector {
 				.then((doc: QuerySnapshot) => {
 					callback(null, doc.docs.length);
 				})
-				.catch(err => callback(err));
+				.catch((err: Error) => callback(err));
 		} else {
 			this.db
 				.collection(model)
 				.get()
-				.then(doc => {
+				.then((doc: QuerySnapshot) => {
 					callback(null, doc.docs.length);
 				})
-				.catch(err => callback(err));
+				.catch((err: Error) => callback(err));
 		}
 	};
 
@@ -139,9 +140,15 @@ class Firestore extends Connector {
 	 * @param {Object} data The property/value pairs to be updated
 	 * @callback {Function} callback Callback function
 	 */
-	public update = (model, where: any, data, _options, callback) => {
+	public update = (
+		model: string,
+		where: any,
+		data: any,
+		_options: any,
+		callback: any
+	) => {
 		const self = this;
-		this.exists(model, where.id, null, (err, res) => {
+		this.exists(model, where.id, null, (err: Error, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -161,14 +168,20 @@ class Firestore extends Connector {
 	/**
 	 * Replace properties for the model instance data
 	 * @param {String} model The name of the model
-	 * @param {*} id The instance id
+	 * @param {String | Number} id The instance id
 	 * @param {Object} data The model data
 	 * @param {Object} options The options object
 	 * @param {Function} [callback] The callback function
 	 */
-	public replaceById = (model, id, data, _options, callback) => {
+	public replaceById = (
+		model: string,
+		id: string | number,
+		data: any,
+		_options: any,
+		callback: any
+	) => {
 		const self = this;
-		this.exists(model, id, null, (err, res) => {
+		this.exists(model, id, null, (err: Error, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -188,13 +201,19 @@ class Firestore extends Connector {
 	/**
 	 * Update properties for the model instance data
 	 * @param {String} model The model name
-	 * @param {*} id The instance id
+	 * @param {String | Number} id The instance id
 	 * @param {Object} data The model data
 	 * @param {Function} [callback] The callback function
 	 */
-	public updateAttributes = (model, id, data, _options, callback) => {
+	public updateAttributes = (
+		model: string,
+		id: string | number,
+		data: any,
+		_options: any,
+		callback: any
+	) => {
 		const self = this;
-		this.exists(model, id, null, (err, res) => {
+		this.exists(model, id, null, (err: Error, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -214,12 +233,12 @@ class Firestore extends Connector {
 	/**
 	 * Delete a model instance by id
 	 * @param {String} model The model name
-	 * @param {*} id The instance id
+	 * @param {String | Number} id The instance id
 	 * @param [callback] The callback function
 	 */
-	public destroyById = (model, id, callback) => {
+	public destroyById = (model: string, id: string | number, callback: any) => {
 		const self = this;
-		this.exists(model, id, null, (err, res) => {
+		this.exists(model, id, null, (err: Error, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -242,11 +261,11 @@ class Firestore extends Connector {
 	 * @param {Object} where The id Object
 	 * @param [callback] The callback function
 	 */
-	public destroyAll = (model, where, callback) => {
+	public destroyAll = (model: string, where: any, callback: any) => {
 		const self = this;
 
 		if (where.id) {
-			this.exists(model, where.id, null, (err, res) => {
+			this.exists(model, where.id, null, (err: Error, res: boolean) => {
 				if (err) callback(err);
 				if (res) {
 					self.db
@@ -270,7 +289,13 @@ class Firestore extends Connector {
 		}
 	};
 
-	public deleteQueryBatch = (db, query, batchSize, resolve, reject) => {
+	public deleteQueryBatch = (
+		db: Admin,
+		query: Query,
+		batchSize: number,
+		resolve: any,
+		reject: any
+	) => {
 		query
 			.get()
 			.then(snapshot => {
@@ -300,21 +325,27 @@ class Firestore extends Connector {
 			.catch(reject);
 	};
 
-	public create = (model, data, callback) => {
+	public create = (model: string, data: any, callback: any) => {
 		this.db
 			.collection(model)
 			.add(data)
-			.then(function(ref) {
+			.then((ref: DocumentReference) => {
 				callback(null, ref.id);
 			})
-			.catch(function(err) {
+			.catch((err: Error) => {
 				callback(err);
 			});
 	};
 
-	public updateAll = (model, where, data, _options, callback) => {
+	public updateAll = (
+		model: string,
+		where: any,
+		data: any,
+		_options: any,
+		callback: any
+	) => {
 		const self = this;
-		this.exists(model, where.id, null, (err, res) => {
+		this.exists(model, where.id, null, (err: Error, res: boolean) => {
 			if (err) callback(err);
 			if (res) {
 				self.db
@@ -338,7 +369,7 @@ class Firestore extends Connector {
 	private completeDocumentResults = (
 		snapshots: DocumentSnapshot[] | QueryDocumentSnapshot[]
 	) => {
-		const results = [];
+		const results: any[] = [];
 
 		snapshots.forEach(item =>
 			results.push({
@@ -501,23 +532,17 @@ class Firestore extends Connector {
 		return resultQuery;
 	};
 
-	private deleteCollection = (db, collectionPath, batchSize) => {
+	private deleteCollection = (
+		db: Admin,
+		collectionPath: string,
+		batchSize: number
+	) => {
 		const collectionRef = db.collection(collectionPath);
 		const query = collectionRef.orderBy('__name__').limit(batchSize);
 
 		return new Promise((resolve, reject) => {
 			this.deleteQueryBatch(db, query, batchSize, resolve, reject);
 		});
-	};
-
-	private decodeOperator = (restOperator: string) => {
-		let operator = '==';
-		if (restOperator == 'lt') {
-			operator = '<';
-		} else if (restOperator == 'gt') {
-			operator = '>';
-		}
-		return operator;
 	};
 }
 
