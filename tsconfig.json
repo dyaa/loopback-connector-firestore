@@ -10,10 +10,9 @@
 		"skipLibCheck": true,
 		"declaration": true,
 		"types": ["node"],
-		"rootDir": "lib",
 		"outDir": "dist",
 		"strict": true
 	},
-	"include": ["lib/**/*"],
+	"include": ["lib"],
 	"exclude": ["test"]
 }
