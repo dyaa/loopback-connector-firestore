@@ -9,8 +9,11 @@
 		"allowSyntheticDefaultImports": true,
 		"skipLibCheck": true,
 		"declaration": true,
-		"types": ["node", "mocha"],
-		"outDir": "dist"
+		"types": ["node"],
+		"rootDir": "lib",
+		"outDir": "dist",
+		"strict": true
 	},
-	"include": ["lib/**/*"]
+	"include": ["lib/**/*"],
+	"exclude": ["test"]
 }

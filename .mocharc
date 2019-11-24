@@ -1,0 +1,9 @@
+{
+	"timeout": 10000,
+	"require": [
+		"test/init.js",
+		"test/*.test.js"
+	],
+	"growl": true,
+	"retries": 3
+}
