@@ -1,7 +1,7 @@
-module.exports = require("should");
+module.exports = require('should');
 
-const { DataSource } = require("loopback-datasource-juggler");
-const lib = require("./../dist/firestore");
+const { DataSource } = require('loopback-datasource-juggler');
+const lib = require('./../dist/firestore');
 
 const {
 	firestore_projectId: projectId,
@@ -15,7 +15,7 @@ if (projectId) {
 	config = {
 		projectId,
 		clientEmail,
-		privateKey: privateKey.replace(/\\n/g, "\n")
+		privateKey: privateKey.replace(/\\n/g, '\n')
 	};
 }
 
