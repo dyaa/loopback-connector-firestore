@@ -7,7 +7,8 @@
 	"scripts": {
 		"lint": "eslint . --fix --ext .ts",
 		"typecheck": "tsc --project tsconfig.json",
-		"test": "mocha --require ts-node/register test/**/*.test.ts",
+		"pretest": "npm run build",
+		"test": "mocha --exit",
 		"stage-files": "git add .",
 		"build": "tsc",
 		"prepublishOnly": "npm run build"
@@ -21,22 +22,19 @@
 		"loopback-connector": "4.9.0"
 	},
 	"devDependencies": {
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.12.8",
-		"@typescript-eslint/eslint-plugin": "^2.7.0",
-		"@typescript-eslint/parser": "^2.7.0",
-		"eslint": "^6.6.0",
+		"@types/node": "^12.12.12",
+		"@typescript-eslint/eslint-plugin": "^2.8.0",
+		"@typescript-eslint/parser": "^2.8.0",
+		"eslint": "^6.7.0",
 		"eslint-config-loopback": "^13.1.0",
-		"eslint-config-prettier": "^6.5.0",
+		"eslint-config-prettier": "^6.7.0",
 		"eslint-plugin-prettier": "^3.1.1",
-		"husky": "^3.0.9",
-		"loopback-datasource-juggler": "^4.14.0",
+		"husky": "^3.1.0",
+		"loopback-datasource-juggler": "^4.15.0",
 		"mocha": "~6.2.2",
 		"npm-run-all": "^4.1.5",
-		"nsp": "^3.2.1",
 		"prettier": "^1.19.1",
 		"should": "^13.2.3",
-		"ts-node": "^8.5.2",
 		"typescript": "^3.7.2"
 	},
 	"engines": {
