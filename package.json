@@ -30,7 +30,7 @@
 		"eslint-config-prettier": "^6.7.0",
 		"eslint-plugin-prettier": "^3.1.1",
 		"husky": "^3.1.0",
-		"loopback-datasource-juggler": "^4.15.0",
+		"loopback-datasource-juggler": "^4.16.0",
 		"mocha": "~6.2.2",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^1.19.1",
